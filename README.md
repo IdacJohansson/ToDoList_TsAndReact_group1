@@ -7,7 +7,20 @@ npm install react-bootstrap bootstrap bootstrap-icons
 ## A typical TypeScript project might have the following basic directory structure:
 
 
-![Project Tree](./assets/project_tree.png)
+project-root/
+- ├── **src/**
+- │   ├── index.ts
+- │   └── components/
+- │       ├── button.ts
+- │       └── input.ts
+- ├── **dist/**
+- │   ├── index.js
+- │   └── components/
+- │       ├── button.js
+- │       └── input.js
+- ├── **node_modules/**
+- ├── **package.json**
+- └── **tsconfig.json**
 
 
 In this structure:
