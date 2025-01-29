@@ -12,13 +12,13 @@ function App() {
     setNewTodo(e.target.value);
   };
 
-  function addNewTodo() {
+  function addNewTodo(): void {
     setTodoList([...todoList, newTodo]);
     setNewTodo("");
   }
 
-  function removeTodo(index) {
-    setTodoList(todoList.filter((_, i) => i !== index));
+  function removeTodo(index: number): void {
+    setTodoList(todoList.filter((_: string, i: number) => i !== index));
   }
 
   function reorderArray(e, todoArr) {
