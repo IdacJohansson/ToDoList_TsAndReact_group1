@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import { Container, Row, Col, Button, ListGroup, Form } from "react-bootstrap";
 
 function App() {
-  const [newTodo, setNewTodo] = useState("");
-  const [todoList, setTodoList] = useState([]);
+  const [newTodo, setNewTodo] = useState<string>("");
+  const [todoList, setTodoList] = useState<string[]>([]);
 
-  const handleNewTodoChange = (e) => {
+  const handleNewTodoChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setNewTodo(e.target.value);
   };
 
