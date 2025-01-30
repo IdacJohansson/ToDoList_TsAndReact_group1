@@ -4,6 +4,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import { Container, Row, Col, Button, ListGroup, Form } from "react-bootstrap";
 
+interface reorderInterface {
+  oldIndex: number;
+  newIndex: number;
+}
+
 function App() {
   const [newTodo, setNewTodo] = useState<string>("");
   const [todoList, setTodoList] = useState<string[]>([]);
@@ -21,10 +26,18 @@ function App() {
     setTodoList(todoList.filter((_: string, i: number) => i !== index));
   }
 
-  function reorderArray(e, todoArr) {
-    const listItem = todoArr.find((_, index) => index === e.oldIndex);
+  function reorderArray(e: reorderInterface, todoArr: string[]): string[] {
+    if (
+      e.oldIndex < 0 ||
+      e.oldIndex >= todoArr.length ||
+      e.newIndex < 0 ||
+      e.newIndex >= todoArr.length
+    ) {
+      return todoArr;
+    }
+    const listItem = todoArr[e.oldIndex];
     const remainingListItems = todoArr.filter(
-      (_, index) => index !== e.oldIndex
+      (_, index: number) => index !== e.oldIndex
     );
 
     const reorderedItems = [
