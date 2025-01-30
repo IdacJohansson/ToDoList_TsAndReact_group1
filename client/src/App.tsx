@@ -4,29 +4,40 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import { Container, Row, Col, Button, ListGroup, Form } from "react-bootstrap";
 
+// Sets the type of direction allowed
+type Direction = "UP" | "DOWN";
+
+// Sets the format of a list item
+interface TodoItem {
+  text: string;
+}
 interface reorderInterface {
   oldIndex: number;
   newIndex: number;
 }
 
 function App() {
-  const [newTodo, setNewTodo] = useState<string>("");
-  const [todoList, setTodoList] = useState<string[]>([]);
+  const [newTodo, setNewTodo] = useState<TodoItem>({
+    text: "",
+  });
+  const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
   const handleNewTodoChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setNewTodo(e.target.value);
+    setNewTodo({ text: e.target.value });
   };
 
   function addNewTodo(): void {
     setTodoList([...todoList, newTodo]);
-    setNewTodo("");
+    setNewTodo({
+      text: "",
+    });
   }
 
   function removeTodo(index: number): void {
-    setTodoList(todoList.filter((_: string, i: number) => i !== index));
+    setTodoList(todoList.filter((_: TodoItem, i: number) => i !== index));
   }
 
-  function reorderArray(e: reorderInterface, todoArr: string[]): string[] {
+  function reorderArray(e: reorderInterface, todoArr: TodoItem[]): TodoItem[] {
     if (
       e.oldIndex < 0 ||
       e.oldIndex >= todoArr.length ||
@@ -49,20 +60,26 @@ function App() {
     return reorderedItems;
   }
 
-  function changeOrder(index, direction) {
-    let newIndex;
+  // Function to change the position of the item in the list
+  function changeOrder(index: number, direction: Direction, todoList: TodoItem[]) {
+    let newIndex: number = index;
 
+    // Check if it can move up
     if (direction === "UP" && index > 0) {
       newIndex = index - 1;
-    } else if (direction === "DOWN" && index < todoList.length - 1) {
+    }
+    // Check if it can move down
+    else if (direction === "DOWN" && index < todoList.length - 1) {
       newIndex = index + 1;
-    } else {
+    }
+    // If unable to move, exit the function
+    else {
       return;
     }
 
-    setTodoList(
-      reorderArray({ oldIndex: index, newIndex: newIndex }, todoList)
-    );
+    // Reorder the list with the moved item
+    const updatedList = reorderArray({ oldIndex: index, newIndex: newIndex, }, todoList);
+    setTodoList(updatedList);
   }
 
   return (
@@ -77,7 +94,7 @@ function App() {
               <Form.Group className="mb-3">
                 <Form.Label>Create your to-do's:</Form.Label>
                 <Form.Control
-                  value={newTodo}
+                  value={newTodo.text}
                   type="text"
                   placeholder="......"
                   onChange={handleNewTodoChange}
@@ -90,11 +107,11 @@ function App() {
                   key={index}
                   className="d-flex justify-content-between align-items-center"
                 >
-                  <span className="mx-3">{todo}</span>
+                  <span className="mx-3">{todo.text}</span>
                   <div>
                     <a
                       className="mx-1 text-dark"
-                      onClick={() => changeOrder(index, "UP")}
+                      onClick={() => changeOrder(index, "UP", todoList)}
                       role="button"
                     >
                       <i
@@ -104,7 +121,7 @@ function App() {
                     </a>
                     <a
                       className="mx-1 text-dark"
-                      onClick={() => changeOrder(index, "DOWN")}
+                      onClick={() => changeOrder(index, "DOWN", todoList)}
                       role="button"
                     >
                       <i
