@@ -7,3 +7,19 @@
 .list-text {
   font-family: "Poppins", sans-serif;
 }
+
+.arrow-icon-hover {
+  transition: background-color 0.3s ease;
+}
+
+.arrow-icon-hover:hover {
+  color: rgb(147, 122, 122);
+}
+
+.trash-icon-hover {
+  transition: background-color 0.3s ease;
+}
+
+.trash-icon-hover:hover {
+  color: rgb(170, 68, 68);
+}

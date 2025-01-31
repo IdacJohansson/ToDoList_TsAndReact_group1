@@ -132,7 +132,7 @@ function App() {
                       role="button"
                     >
                       <i
-                        className="bi bi-arrow-up-circle"
+                        className="bi bi-arrow-up-circle arrow-icon-hover"
                         style={{ fontSize: "15px" }}
                       ></i>
                     </a>
@@ -142,17 +142,17 @@ function App() {
                       role="button"
                     >
                       <i
-                        className="bi bi-arrow-down-circle"
+                        className="bi bi-arrow-down-circle arrow-icon-hover"
                         style={{ fontSize: "15px" }}
                       ></i>
                     </a>
                     <a
-                      className="mx-2 mt-3 text-warning"
+                      className="mx-2 mt-3 text-dark"
                       onClick={() => removeTodo(index)}
                       role="button"
                     >
                       <i
-                        className="bi bi-trash3"
+                        className="bi bi-trash3 trash-icon-hover"
                         style={{ fontSize: "15px" }}
                       ></i>
                     </a>
