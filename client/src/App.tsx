@@ -2,7 +2,15 @@ import React, { useState, ChangeEvent } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-import { Container, Row, Col, Button, ListGroup, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  ListGroup,
+  Form,
+  InputGroup,
+} from "react-bootstrap";
 
 // Sets the type of direction allowed
 type Direction = "UP" | "DOWN";
@@ -61,7 +69,11 @@ function App() {
   }
 
   // Function to change the position of the item in the list
-  function changeOrder(index: number, direction: Direction, todoList: TodoItem[]) {
+  function changeOrder(
+    index: number,
+    direction: Direction,
+    todoList: TodoItem[]
+  ) {
     let newIndex: number = index;
 
     // Check if it can move up
@@ -78,34 +90,39 @@ function App() {
     }
 
     // Reorder the list with the moved item
-    const updatedList = reorderArray({ oldIndex: index, newIndex: newIndex, }, todoList);
+    const updatedList = reorderArray(
+      { oldIndex: index, newIndex: newIndex },
+      todoList
+    );
     setTodoList(updatedList);
   }
 
   return (
-    <main className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-      <div>
-        <h1 className="mt-5">To-Do-List</h1>
-      </div>
+    <main className="bg-dark d-flex flex-column min-vh-100 justify-content-center align-items-center">
       <Container className="text-center">
+        <h1 className="mt-5 mb-4 text-light chalk-text">Todo-List</h1>
         <Row className="justify-content-md-center">
           <Col md="auto">
             <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>Create your to-do's:</Form.Label>
+              <InputGroup className="mb-3">
                 <Form.Control
                   value={newTodo.text}
                   type="text"
                   placeholder="......"
                   onChange={handleNewTodoChange}
+                  size="lg"
                 />
-              </Form.Group>
+                <Button variant="secondary" onClick={addNewTodo}>
+                  <i className="bi bi-plus" style={{ fontSize: "24px" }}></i>
+                </Button>
+              </InputGroup>
             </Form>
+
             <ListGroup as="ol" numbered>
               {todoList.map((todo, index) => (
                 <ListGroup.Item
                   key={index}
-                  className="d-flex justify-content-between align-items-center"
+                  className="d-flex justify-content-between align-items-center list-text"
                 >
                   <span className="mx-3">{todo.text}</span>
                   <div>
@@ -130,7 +147,7 @@ function App() {
                       ></i>
                     </a>
                     <a
-                      className="mx-2 mt-3 text-danger"
+                      className="mx-2 mt-3 text-warning"
                       onClick={() => removeTodo(index)}
                       role="button"
                     >
@@ -143,14 +160,6 @@ function App() {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <Button
-              variant="secondary"
-              size="lg"
-              className="mx-2 mt-3"
-              onClick={addNewTodo}
-            >
-              Add
-            </Button>
           </Col>
         </Row>
       </Container>
